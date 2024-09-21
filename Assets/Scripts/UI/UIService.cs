@@ -11,6 +11,8 @@ namespace ServiceLocator.UI
 {
     public class UIService : MonoBehaviour
     {
+        public static UIService Instance;
+
         [SerializeField] private EventService eventService;
         [SerializeField] private WaveService waveService;
         [SerializeField] private PlayerService playerService;
@@ -40,6 +42,19 @@ namespace ServiceLocator.UI
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
 
+        public RectTransform rectTransform { get; private set; }
+
+        private void Awake()
+        {
+            if(Instance != null)
+            {
+                Destroy(gameObject);
+            }
+
+            Instance = this;
+
+            rectTransform = GetComponent<RectTransform>();
+        }
 
         private void Start()
         {
@@ -56,6 +71,14 @@ namespace ServiceLocator.UI
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
             
             SubscribeToEvents();
+        }
+
+        private void OnDestroy()
+        {
+            if(Instance == this)
+            {
+                Instance = null;
+            }
         }
 
         public void SubscribeToEvents() => eventService.OnMapSelected.AddListener(OnMapSelected);
