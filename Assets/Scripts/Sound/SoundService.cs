@@ -1,3 +1,4 @@
+using ServiceLocator.UI;
 using System;
 using UnityEngine;
 
@@ -5,9 +6,31 @@ namespace ServiceLocator.Sound
 {
     public class SoundService : MonoBehaviour
     {
+        public static SoundService Instance { get; private set; }
+
         [SerializeField] private SoundScriptableObject soundScriptableObject;
         [SerializeField] private AudioSource audioEffects;
         [SerializeField] private AudioSource backgroundMusic;
+
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                Debug.LogError($"Trying to crate second singleton");
+                return;
+            }
+
+            Instance = this;
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+        }
 
         private void Start()
         {
