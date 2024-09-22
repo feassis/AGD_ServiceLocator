@@ -9,10 +9,8 @@ using ServiceLocator.Player;
 
 namespace ServiceLocator.UI
 {
-    public class UIService : MonoBehaviour
+    public class UIService : GenericMonoSingleton<UIService>
     {
-        public static UIService Instance { get; private set; }
-
         [SerializeField] private EventService eventService;
 
         [Header("Gameplay Panel")]
@@ -42,17 +40,9 @@ namespace ServiceLocator.UI
 
         public RectTransform rectTransform { get; private set; }
 
-        private void Awake()
+        protected void Awake()
         {
-            if(Instance != null)
-            {
-                Destroy(gameObject);
-                Debug.LogError($"Trying to crate second singleton");
-                return;
-            }
-
-            Instance = this;
-
+            base.Awake();
             rectTransform = GetComponent<RectTransform>();
         }
 
@@ -71,14 +61,6 @@ namespace ServiceLocator.UI
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
             
             SubscribeToEvents();
-        }
-
-        private void OnDestroy()
-        {
-            if(Instance == this)
-            {
-                Instance = null;
-            }
         }
 
         public void SubscribeToEvents() => eventService.OnMapSelected.AddListener(OnMapSelected);
