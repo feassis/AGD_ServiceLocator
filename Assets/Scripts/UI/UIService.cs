@@ -36,6 +36,13 @@ namespace ServiceLocator.UI
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
 
+        public RectTransform RectTransform { get; private set; }
+
+        private void Awake()
+        {
+            base.Awake();
+            RectTransform = GetComponent<RectTransform>();
+        }
 
         private void Start()
         {
