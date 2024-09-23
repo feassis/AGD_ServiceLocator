@@ -35,7 +35,7 @@ namespace ServiceLocator.UI
 
         public void OnDrag(PointerEventData eventData)
         {
-            rectTransform.anchoredPosition += eventData.delta / UIService.Instance.RectTransform.localScale;
+            rectTransform.anchoredPosition += eventData.delta / GameService.Instance.UIService.RectTransform.localScale;
             owner.MonkeyDraggedAt(eventData.position);
         }
 

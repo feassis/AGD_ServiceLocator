@@ -16,11 +16,6 @@ namespace ServiceLocator.Sound
             this.audioEffects = audioEffects;
             this.backgroundMusic = backgroundMusic;
 
-            Start();
-        }
-
-        private void Start()
-        {
             PlaybackgroundMusic(SoundType.BackgroundMusic, true);
         }
 
