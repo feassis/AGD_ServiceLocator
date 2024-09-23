@@ -35,10 +35,14 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private WaveScriptableObject waveScriptableObject;
     public WaveService WaveService { get; private set; }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        EventService = new EventService();
+    }
+
     protected void Start()
     {
-        EventService = new EventService();
-
         PlayerService = new PlayerService(playerScriptableObject);
 
         SoundService = new SoundService(soundScriptableObject, audioEffects, backgroundMusic);
