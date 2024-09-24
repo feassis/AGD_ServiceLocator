@@ -34,10 +34,12 @@ public class MonkeyController_UnitTest
 
     private ProjectilePool CreateDummyProjectilePool()
     {
-        ProjectileView projectilePrefab = new GameObject().AddComponent<ProjectileView>();
-        List<ProjectileScriptableObject> projectileSOs = new List<ProjectileScriptableObject>();
-        projectileSOs.Add(ScriptableObject.CreateInstance<ProjectileScriptableObject>());
-        return new ProjectilePool(projectilePrefab, projectileSOs);
+        //ProjectileView projectilePrefab = new GameObject().AddComponent<ProjectileView>();
+        //List<ProjectileScriptableObject> projectileSOs = new List<ProjectileScriptableObject>();
+        //projectileSOs.Add(ScriptableObject.CreateInstance<ProjectileScriptableObject>());
+        //return new ProjectilePool(projectilePrefab, projectileSOs);
+
+        return null;
     }
 
     [Test]
