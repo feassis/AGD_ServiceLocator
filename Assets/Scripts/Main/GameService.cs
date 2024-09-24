@@ -6,6 +6,7 @@ using ServiceLocator.Wave;
 using ServiceLocator.Sound;
 using ServiceLocator.Player;
 using ServiceLocator.UI;
+using Microsoft.Win32.SafeHandles;
 
 namespace ServiceLocator.Main
 {
@@ -34,17 +35,28 @@ namespace ServiceLocator.Main
 
         private void Start()
         {
-            EventService = new EventService();
-            UIService.SubscribeToEvents();
-            MapService = new MapService(mapScriptableObject);
-            WaveService = new WaveService(waveScriptableObject);
-            SoundService = new SoundService(soundScriptableObject, SFXSource, BGSource);
-            PlayerService = new PlayerService(playerScriptableObject);
+            CreatServices();
+            InjectDependencies();
         }
 
         private void Update()
         {
             PlayerService.Update();
+        }
+
+        private void CreatServices()
+        {
+            EventService = new EventService();
+            PlayerService = new PlayerService(playerScriptableObject);
+            UIService.SubscribeToEvents();
+            MapService = new MapService(mapScriptableObject);
+            WaveService = new WaveService(waveScriptableObject);
+            SoundService = new SoundService(soundScriptableObject, SFXSource, BGSource);
+        }
+
+        private void InjectDependencies()
+        {
+            PlayerService.Init(UIService, MapService, SoundService);
         }
     }
 }
