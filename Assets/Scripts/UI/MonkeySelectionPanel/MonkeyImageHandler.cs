@@ -17,10 +17,13 @@ namespace ServiceLocator.UI
         private Vector2 originalAnchoredPosition;
         private Vector3 originalPosition;
 
-        public void ConfigureImageHandler(Sprite spriteToSet, MonkeyCellController owner)
+        private UIService uiService;
+
+        public void ConfigureImageHandler(Sprite spriteToSet, MonkeyCellController owner, UIService uIService)
         {
             this.spriteToSet = spriteToSet;
             this.owner = owner;
+            this.uiService = uIService;
         }
 
         private void Awake()
@@ -36,7 +39,7 @@ namespace ServiceLocator.UI
 
         public void OnDrag(PointerEventData eventData)
         {
-            rectTransform.anchoredPosition += eventData.delta / GameService.Instance.UIService.RectTransform.localScale;
+            rectTransform.anchoredPosition += eventData.delta / uiService.RectTransform.localScale;
             owner.MonkeyDraggedAt(eventData.position);
         }
 

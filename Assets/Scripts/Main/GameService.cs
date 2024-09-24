@@ -56,7 +56,7 @@ namespace ServiceLocator.Main
         private void InjectDependencies()
         {
             PlayerService.Init(UIService, MapService, SoundService);
-            WaveService.Init(EventService, UIService, MapService, SoundService);
+            WaveService.Init(EventService, UIService, MapService, SoundService, PlayerService);
             MapService.Init(EventService);
             UIService.Init(EventService, WaveService);
         }

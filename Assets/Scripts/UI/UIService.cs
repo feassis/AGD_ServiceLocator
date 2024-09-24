@@ -6,6 +6,7 @@ using ServiceLocator.Main;
 using UnityEngine.SceneManagement;
 using ServiceLocator.Events;
 using ServiceLocator.Wave;
+using ServiceLocator.Player;
 
 namespace ServiceLocator.UI
 {
@@ -38,6 +39,7 @@ namespace ServiceLocator.UI
 
         private EventService eventService;
         private WaveService waveService;
+        private PlayerService playerService;
 
         public RectTransform RectTransform { get; private set; }
 
@@ -46,7 +48,7 @@ namespace ServiceLocator.UI
             RectTransform = GetComponent<RectTransform>();
         }
 
-        public void Init(EventService eventService, WaveService waveService)
+        public void Init(EventService eventService, WaveService waveService, PlayerService playerService)
         {
             this.eventService = eventService;
             this.waveService = waveService;
@@ -55,7 +57,8 @@ namespace ServiceLocator.UI
 
         private void Start()
         {
-            monkeySelectionController = new MonkeySelectionUIController(cellContainer, monkeyCellPrefab, monkeyCellScriptableObjects);
+            monkeySelectionController = new MonkeySelectionUIController(cellContainer, monkeyCellPrefab, 
+                monkeyCellScriptableObjects, this, playerService);
             MonkeySelectionPanel.SetActive(false);
             monkeySelectionController.SetActive(false);
 

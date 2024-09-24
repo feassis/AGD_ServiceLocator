@@ -16,9 +16,9 @@ namespace ServiceLocator.UI
 
         public void SetController(MonkeyCellController controllerToSet) => controller = controllerToSet;
 
-        public void ConfigureCellUI(Sprite spriteToSet, string nameToSet, int costToSet)
+        public void ConfigureCellUI(Sprite spriteToSet, string nameToSet, int costToSet, UIService uiSevice)
         {
-            monkeyImageHandler.ConfigureImageHandler(spriteToSet, controller);
+            monkeyImageHandler.ConfigureImageHandler(spriteToSet, controller, uiSevice);
             nameText.SetText(nameToSet);
             costText.SetText(costToSet.ToString());
         }
