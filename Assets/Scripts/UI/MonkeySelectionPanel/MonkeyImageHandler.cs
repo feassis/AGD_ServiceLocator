@@ -1,3 +1,4 @@
+using ServiceLocator.Main;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace ServiceLocator.UI
 
         public void OnDrag(PointerEventData eventData)
         {
-            rectTransform.anchoredPosition += eventData.delta;
+            rectTransform.anchoredPosition += eventData.delta / GameService.Instance.UIService.RectTransform.localScale;
             owner.MonkeyDraggedAt(eventData.position);
         }
 
