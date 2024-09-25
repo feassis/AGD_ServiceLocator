@@ -768,6 +768,18 @@ PrefabInstance:
       propertyPath: mapButtons.Array.data[2]
       value: 
       objectReference: {fileID: 609872951}
+    - target: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: monkeyCellScriptableObjects.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: monkeyCellScriptableObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 16a201d7e402e7d42ae72c86ad11a425, type: 2}
+    - target: {fileID: 7182248005041137930, guid: 15430d56842a28843b57fd250730f142, type: 3}
+      propertyPath: monkeyCellScriptableObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: ecfd65f9e411ec44aad2b80e82f05709, type: 2}
     - target: {fileID: 7182248005041137931, guid: 15430d56842a28843b57fd250730f142, type: 3}
       propertyPath: m_Name
       value: Canvas - UI Service

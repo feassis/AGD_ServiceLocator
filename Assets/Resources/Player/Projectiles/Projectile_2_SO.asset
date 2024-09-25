@@ -16,3 +16,5 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 85de3f5b571be32409cb8455654037a9, type: 3}
   Speed: 10
   Damage: 2
+  Piercing: 1
+  BlastRadius: 0

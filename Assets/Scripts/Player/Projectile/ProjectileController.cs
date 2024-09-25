@@ -1,6 +1,7 @@
 using UnityEngine;
 using ServiceLocator.Wave.Bloon;
 using ServiceLocator.Main;
+using System.Collections.Generic;
 
 namespace ServiceLocator.Player.Projectile
 {
@@ -13,11 +14,14 @@ namespace ServiceLocator.Player.Projectile
         private ProjectileState currentState;
         private PlayerService playerService;
 
+        private int projectileHitCont = 0;
+
         public ProjectileController(ProjectileView projectilePrefab, Transform projectileContainer, PlayerService playerService)
         {
             projectileView = Object.Instantiate(projectilePrefab, projectileContainer);
             projectileView.SetController(this);
             this.playerService = playerService;
+            projectileHitCont = 0;
         }
 
         public void Init(ProjectileScriptableObject projectileScriptableObject)
@@ -54,9 +58,37 @@ namespace ServiceLocator.Player.Projectile
         {
             if (currentState == ProjectileState.ACTIVE)
             {
+                projectileHitCont++;
                 bloonHit.TakeDamage(projectileScriptableObject.Damage);
-                ResetProjectile();
-                SetState(ProjectileState.HIT_TARGET);
+
+                if(projectileHitCont >= projectileScriptableObject.Piercing)
+                {
+                    if(projectileScriptableObject.BlastRadius > 0f)
+                    {
+                        CheckBlastRadious();
+                    }
+
+                    ResetProjectile();
+                    SetState(ProjectileState.HIT_TARGET);
+                }
+            }
+        }
+
+        private void CheckBlastRadious()
+        {
+            var contactFilter = new ContactFilter2D();
+            List<Collider2D> results = new List<Collider2D>();
+
+            int numberOfHits = Physics2D.OverlapCircle(projectileView.transform.position, projectileScriptableObject.BlastRadius, contactFilter.NoFilter(), results);
+
+            for (int i = 0; i < numberOfHits; i++)
+            {
+                Collider2D hitCollider = results[i];
+                
+                if(hitCollider.gameObject.TryGetComponent<BloonView>(out BloonView bloonView))
+                {
+                    bloonView.Controller.TakeDamage(projectileScriptableObject.Damage);
+                }
             }
         }
 
@@ -65,6 +97,7 @@ namespace ServiceLocator.Player.Projectile
             target = null;
             projectileView.gameObject.SetActive(false);
             playerService.ReturnProjectileToPool(this);
+            projectileHitCont = 0;
         }
 
         private void SetState(ProjectileState newState) => currentState = newState;

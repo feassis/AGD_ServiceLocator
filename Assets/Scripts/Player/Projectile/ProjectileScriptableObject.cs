@@ -9,5 +9,7 @@ namespace ServiceLocator.Player.Projectile
         public Sprite Sprite;
         public float Speed;
         public int Damage;
+        public int Piercing = 1;
+        public float BlastRadius = 0f;
     }
 }
