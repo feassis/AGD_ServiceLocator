@@ -3,6 +3,7 @@ using UnityEngine;
 using ServiceLocator.Main;
 using ServiceLocator.Player;
 using ServiceLocator.Sound;
+using System.Collections;
 
 namespace ServiceLocator.Wave.Bloon
 {
@@ -20,6 +21,7 @@ namespace ServiceLocator.Wave.Bloon
         private PlayerService playerService;
         private WaveService waveService;
         private SoundService soundService;
+        private CorotineService corotineService;
 
         public Vector3 Position => bloonView.transform.position;
 
@@ -30,12 +32,13 @@ namespace ServiceLocator.Wave.Bloon
         }
 
         public void Init(BloonScriptableObject bloonScriptableObject, 
-            PlayerService playerService, WaveService waveService, SoundService soundService)
+            PlayerService playerService, WaveService waveService, SoundService soundService, CorotineService corotineService)
         {
             this.bloonScriptableObject = bloonScriptableObject;
             this.playerService = playerService;
             this.waveService = waveService;
             this.soundService = soundService;
+            this.corotineService = corotineService;
             InitializeVariables();
             SetState(BloonState.ACTIVE);
         }
@@ -112,7 +115,8 @@ namespace ServiceLocator.Wave.Bloon
         public void OnPopAnimationPlayed()
         {
             if (HasLayeredBloons())
-                SpawnLayeredBloons();
+                corotineService.StartCoroutine(SpawnLayeredBloons());
+                
 
             playerService.GetReward(bloonScriptableObject.Reward);
             waveService.RemoveBloon(this);
@@ -120,7 +124,7 @@ namespace ServiceLocator.Wave.Bloon
 
         private bool HasLayeredBloons() => bloonScriptableObject.LayeredBloons.Count > 0;
 
-        private void SpawnLayeredBloons() => waveService.SpawnBloons(bloonScriptableObject.LayeredBloons,
+        private IEnumerator SpawnLayeredBloons() => waveService.SpawnBloons(bloonScriptableObject.LayeredBloons,
                                                                                           bloonView.transform.position,
                                                                                           currentWaypointIndex,
                                                                                           bloonScriptableObject.LayerBloonSpawnRate);

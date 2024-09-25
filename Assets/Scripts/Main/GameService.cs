@@ -18,6 +18,8 @@ namespace ServiceLocator.Main
         private WaveService waveService;
         private SoundService soundService;
         private PlayerService playerService;
+        
+        [SerializeField] private CorotineService corotineService;
 
         [SerializeField] private UIService uiService;
         public UIService UIService => uiService;
@@ -56,7 +58,7 @@ namespace ServiceLocator.Main
         private void InjectDependencies()
         {
             playerService.Init(UIService, mapService, soundService);
-            waveService.Init(eventService, UIService, mapService, soundService, playerService);
+            waveService.Init(eventService, UIService, mapService, soundService, playerService, corotineService);
             mapService.Init(eventService);
             UIService.Init(eventService, waveService, playerService);
         }
