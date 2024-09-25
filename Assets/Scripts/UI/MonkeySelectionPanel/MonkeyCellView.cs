@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Transactions;
 
 namespace ServiceLocator.UI
 {
@@ -13,14 +14,24 @@ namespace ServiceLocator.UI
         [SerializeField] private MonkeyImageHandler monkeyImageHandler;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI costText;
+        [SerializeField] private string lockedTest = "Locked";
 
         public void SetController(MonkeyCellController controllerToSet) => controller = controllerToSet;
 
-        public void ConfigureCellUI(Sprite spriteToSet, string nameToSet, int costToSet, UIService uiSevice)
+        public void ConfigureCellUI(Sprite spriteToSet, string nameToSet, int costToSet, UIService uiSevice, bool isUnlocked, int unlockCost)
         {
             monkeyImageHandler.ConfigureImageHandler(spriteToSet, controller, uiSevice);
-            nameText.SetText(nameToSet);
-            costText.SetText(costToSet.ToString());
+
+            if(isUnlocked)
+            {
+                nameText.SetText(nameToSet);
+                costText.SetText(costToSet.ToString());
+            }
+            else
+            {
+                nameText.SetText(lockedTest);
+                costText.SetText(unlockCost.ToString());
+            }
         }
 
     }

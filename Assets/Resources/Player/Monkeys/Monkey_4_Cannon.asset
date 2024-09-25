@@ -20,3 +20,4 @@ MonoBehaviour:
   Cost: 500
   AttackableBloons: 00000000010000000200000004000000
   AttackRate: 1
+  UnlockCost: 800

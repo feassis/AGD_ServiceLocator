@@ -16,5 +16,7 @@ namespace ServiceLocator.Player
         public int Cost;
         public List<BloonType> AttackableBloons;
         public float AttackRate;
+        public int UnlockCost;
+
     }
 }

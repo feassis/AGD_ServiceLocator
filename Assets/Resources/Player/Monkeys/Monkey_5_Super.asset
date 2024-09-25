@@ -15,8 +15,9 @@ MonoBehaviour:
   Type: 4
   Prefab: {fileID: 4096465855865953158, guid: c5dc436880a047f4d97645f1e1f560a5, type: 3}
   RotationSpeed: 180
-  projectileType: 3
+  projectileType: 4
   Range: 8
   Cost: 3000
   AttackableBloons: 0000000001000000020000000300000004000000
   AttackRate: 0.1
+  UnlockCost: 5000

@@ -5,6 +5,7 @@ using ServiceLocator.Main;
 using ServiceLocator.UI;
 using ServiceLocator.Sound;
 using ServiceLocator.Map;
+using System;
 
 namespace ServiceLocator.Player
 {
@@ -21,6 +22,8 @@ namespace ServiceLocator.Player
         private UIService uiService;
         private MapService mapService;
         private SoundService soundService;
+
+        private List<MonkeyType> unlockedMonkeys = new List<MonkeyType>();
 
         public PlayerService(PlayerScriptableObject playerScriptableObject)
         {
@@ -100,6 +103,11 @@ namespace ServiceLocator.Player
 
         public void TrySpawningMonkey(MonkeyType monkeyType, int monkeyCost, Vector3 dropPosition)
         {
+            if (!IsMonkeyUnlocked(monkeyType))
+            {
+                return;
+            }
+
             if (monkeyCost > Money)
                 return;
 
@@ -125,6 +133,21 @@ namespace ServiceLocator.Player
 
         public void ReturnProjectileToPool(ProjectileController projectileToReturn) => projectilePool.ReturnItem(projectileToReturn);
         
+        public bool IsMonkeyUnlocked(MonkeyType type)
+        {
+            if(unlockedMonkeys.Contains(type)) return true;
+
+            var monkeySO = GetMonkeyScriptableObjectByType(type);
+
+            if(monkeySO.UnlockCost <= 0)
+            {
+                unlockedMonkeys.Add(type);
+                return true;
+            }
+
+            return false;
+        }
+
         public void TakeDamage(int damageToTake)
         {
             int reducedHealth = health - damageToTake;
@@ -148,5 +171,18 @@ namespace ServiceLocator.Player
         }
 
         private void PlayerDeath() => uiService.UpdateGameEndUI(false);
+
+        internal void TryToUnlockMonkey(MonkeyType type)
+        {
+            if(IsMonkeyUnlocked(type)) return;
+
+            var monkeySO = GetMonkeyScriptableObjectByType(type);
+
+            if(Money <  monkeySO.UnlockCost) return;
+            
+            DeductMoney(monkeySO.UnlockCost);
+
+            unlockedMonkeys.Add(type);
+        }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace ServiceLocator.UI
 {
-    public class MonkeyImageHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
+    public class MonkeyImageHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IPointerUpHandler
     {
         private RectTransform rectTransform;
         private Image monkeyImage;
@@ -35,7 +35,11 @@ namespace ServiceLocator.UI
             originalAnchoredPosition = rectTransform.anchoredPosition;
         }
 
-        public void OnPointerDown(PointerEventData eventData) => monkeyImage.color = new Color(1, 1, 1, 0.6f);
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            monkeyImage.color = new Color(1, 1, 1, 0.6f);
+            owner.TryToUnlock();
+        }
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -56,6 +60,11 @@ namespace ServiceLocator.UI
             rectTransform.localPosition = originalPosition;
             GetComponent<LayoutElement>().enabled = false;
             GetComponent<LayoutElement>().enabled = true;
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            monkeyImage.color = new Color(1, 1, 1, 1f);
         }
     }
 }
