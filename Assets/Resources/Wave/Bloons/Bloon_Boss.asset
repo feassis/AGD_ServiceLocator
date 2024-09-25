@@ -16,7 +16,11 @@ MonoBehaviour:
   Health: 200
   Damage: 80
   Reward: 600
-  Speed: 1
+  Speed: 0.5
   Sprite: {fileID: 21300000, guid: 56150d2e3c6457248bdbf858ecbcc70a, type: 3}
-  LayeredBloons: 02000000020000000300000002000000020000000300000003000000
+  LayeredBloons: 0200000002000000030000000200000002000000030000000300000003000000
   LayerBloonSpawnRate: 0.2
+  HasRegenerationIfNotHit: 1
+  RegenerationCooldown: 1
+  RegenerationDelay: 3
+  RegenerationRate: 20

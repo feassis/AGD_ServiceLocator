@@ -23,6 +23,8 @@ namespace ServiceLocator.Wave.Bloon
         private SoundService soundService;
         private CorotineService corotineService;
 
+        private Coroutine regenerationRoutine;
+
         public Vector3 Position => bloonView.transform.position;
 
         public BloonController(BloonView bloonPrefab, Transform bloonContainer)
@@ -50,6 +52,8 @@ namespace ServiceLocator.Wave.Bloon
             waypoints = new List<Vector3>();
         }
 
+
+
         public void SetPosition(Vector3 spawnPosition)
         {
             bloonView.transform.position = spawnPosition;
@@ -67,10 +71,31 @@ namespace ServiceLocator.Wave.Bloon
             int reducedHealth = currentHealth - damageToTake;
             currentHealth = reducedHealth <= 0 ? 0 : reducedHealth;
 
+            if (bloonScriptableObject.HasRegenerationIfNotHit)
+            {
+                if (regenerationRoutine != null)
+                {
+                    corotineService.StopCoroutine(regenerationRoutine);
+                }
+
+                regenerationRoutine = corotineService.StartCoroutine(Regeneration());
+            }
+
             if (currentHealth <= 0 && currentState == BloonState.ACTIVE)
             {
                 PopBloon();
                 soundService.PlaySoundEffects(Sound.SoundType.BloonPop);
+            }
+        }
+
+        private IEnumerator Regeneration()
+        {
+            yield return new WaitForSeconds(bloonScriptableObject.RegenerationDelay);
+            while(currentHealth < bloonScriptableObject.Health)
+            {
+                currentHealth = Mathf.Clamp(currentHealth + bloonScriptableObject.RegenerationRate, 0, bloonScriptableObject.Health);
+
+                yield return new WaitForSeconds(bloonScriptableObject.RegenerationCooldown);
             }
         }
 

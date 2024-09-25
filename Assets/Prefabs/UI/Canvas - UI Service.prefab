@@ -1708,6 +1708,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapId: 3
+  ActiveColor: {r: 0, g: 0, b: 0, a: 0}
+  DeactiveColor: {r: 0, g: 0, b: 0, a: 0}
+  buttonBG: {fileID: 0}
 --- !u!1 &2470721180801746164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,6 +1847,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapId: 2
+  ActiveColor: {r: 0, g: 0, b: 0, a: 0}
+  DeactiveColor: {r: 0, g: 0, b: 0, a: 0}
+  buttonBG: {fileID: 0}
 --- !u!1 &5732035780544625621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,6 +2162,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapId: 1
+  ActiveColor: {r: 0, g: 0, b: 0, a: 0}
+  DeactiveColor: {r: 0, g: 0, b: 0, a: 0}
+  buttonBG: {fileID: 0}
 --- !u!1 &7182248003610753085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,6 +3564,7 @@ MonoBehaviour:
   monkeyCellScriptableObjects:
   - {fileID: 11400000, guid: 32d68a98896142d4882e7130b750d952, type: 2}
   - {fileID: 11400000, guid: 7e59d2e4e596c4049bce2fe6e66638bf, type: 2}
+  - {fileID: 11400000, guid: 1a259eb6efab7ab43ac36552b0b32d4b, type: 2}
   gameEndPanel: {fileID: 1284288942}
   gameEndText: {fileID: 507616694}
   playAgainButton: {fileID: 1921834386}

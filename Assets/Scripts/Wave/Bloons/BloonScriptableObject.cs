@@ -14,5 +14,9 @@ namespace ServiceLocator.Wave.Bloon
         public Sprite Sprite;
         public List<BloonType> LayeredBloons;
         public float LayerBloonSpawnRate;
+        public bool HasRegenerationIfNotHit;
+        public float RegenerationCooldown;
+        public float RegenerationDelay;
+        public int RegenerationRate;
     }
 }
