@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Canon Monkey
   Sprite: {fileID: 21300000, guid: 2a1cf7e4a2ceb584b9ff513a13a41027, type: 3}
   Cost: 500
+  UnlockCost: 800
